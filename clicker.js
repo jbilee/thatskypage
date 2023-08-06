@@ -1,6 +1,6 @@
 let userComment = document.querySelector(".comment");
 let userSubmit = document.querySelector(".commentSubmit");
-let outputArea = document.querySelector(".afterArea");
+let outputArea = document.querySelector(".photo-comments");
 let commentCount = 0;
 
 function addBubble() {
@@ -12,16 +12,16 @@ function addBubble() {
         alert("Enter text!")
     }
     else if (commentCount == 5) {
-        document.querySelector('.afterArea').children[1].remove();
+        outputArea.children[0].remove();
         newArea.setAttribute("class", "bubble");
         chngColor(newArea, randomizer);
-        outputArea.insertBefore(newArea, document.querySelector("#comment"));
+        outputArea.insertBefore(newArea, userComment);
         newArea.textContent = `${userInput}`;
     }
     else {
         newArea.setAttribute("class", "bubble");
         chngColor(newArea, randomizer);
-        outputArea.insertBefore(newArea, document.querySelector("#comment"));
+        outputArea.insertBefore(newArea, userComment);
         newArea.textContent = `${userInput}`;
         commentCount++;
     }
