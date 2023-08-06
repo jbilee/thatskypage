@@ -10,6 +10,16 @@ div {
     overflow: hidden;
 }
 
+#album-page {
+    display: none;
+    background-color: aquamarine;
+}
+
+#album-list {
+    display: block;
+    background-color: lightpink;
+}
+
 .afterArea {
     width: 600px;
 }
@@ -35,6 +45,11 @@ div {
     margin: 2px;
     border: 1px solid white;
     z-index: 0;
+}
+
+.image:hover {
+    cursor: pointer;
+    opacity: 0.7;
 }
 
 .image-selected {
