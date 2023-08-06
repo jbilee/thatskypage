@@ -17,30 +17,44 @@
 </head>
 
 <body>
-    <input type="button" value="Select All" onclick="selectAll()">
-    <input type="button" value="Unselect All" onclick="unselectAll()">
+    <div id="album-list">
+        <div class="image image-div photo1" onclick="albumPage()">
+            <img src="https://i.imgur.com/nPGL7k9.jpg" alt="Season of Remembrance">
+        </div>
+        <div class="image image-div photo2">
+            <img src="https://i.imgur.com/kFJHMTU.jpg" alt="Aurora Concert!">
+        </div>
+    </div>
+
     <hr>
 
-    <div class="image image-div photo1">
-        <img src="./images/IMG_7842.JPG" alt="Season of Remembrance">
-    </div>
-    <div class="image image-div photo2">
-        <img src="./images/IMG_5521.JPG" alt="Aurora Concert!">
-    </div>
-    <hr>
-    <div class="afterArea">
-        <p>こんにちは！skyのアレックスです！フレさんたちとの思い出を残したくて<strong>このページを作りました！</strong></p>
-        <input type="text" id="comment" class="comment" maxlength="20">
-        <input type="button" class="commentSubmit" value="コメント">
-    </div>
-    <div>
-        <button class="photoChanger" onclick="changePhoto()">Change my photo!</button>
+    <div id="album-page" class="album-page">
+        <img class="photo-img" alt="Large photo image">
+        src will be assigned every time image is clicked
 
+        <div class="photo-details">
+            <h3>photo title</h3>
+            photo details
+        </div>
+
+        <div class="photo-comments">
+            <input type="text" id="comment" class="comment" maxlength="20">
+            <input type="button" class="commentSubmit" value="コメント">
+        </div>
+
+        <div class="photo-bottom">
+            <input type="button" value="X" onclick="closePage()">
+        </div>
     </div>
+
+
 
     <script src="clicker.js"></script>
 
     <script>
+        let listArea = document.querySelector("#album-list");
+        let pageArea = document.querySelector("#album-page");
+
         function changePhoto() {
             let photoRand;
             let photoSelector1 = document.querySelector(".photo1").children[0];
@@ -51,6 +65,17 @@
             photoRand = Math.floor(Math.random() * 13);
             photoSelector2.setAttribute("src", photos[photoRand].imageUrl);
         }
+
+        function albumPage() {
+            listArea.style.display = "none";
+            pageArea.style.display = "block";
+        }
+
+        function closePage() {
+            listArea.style.display = "block";
+            pageArea.style.display = "none";
+        }
+
     </script>
 </body>
 
