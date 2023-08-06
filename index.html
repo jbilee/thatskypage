@@ -1,16 +1,57 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <script src="thatskypage.js"></script>
-        <link rel="stylesheet" href="skypage.css">
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500&display=swap" rel="stylesheet">
+    <title>sky album</title>
 
-    <body>
-        thatskypage
-        <br>
-        <input type="button" value="Select All" onclick="selectAll()"> <input type="button" value="Unselect All" onclick="unselectAll()">
-        <hr>
-    </body>
+    <script src="thatskypage.js"></script>
+    <script src="images.js"></script>
+    <link rel="stylesheet" href="skypage.css">
+
+    <link rel="icon" type="images/x-icon" href="./images/egg04.png">
+</head>
+
+<body>
+    <input type="button" value="Select All" onclick="selectAll()">
+    <input type="button" value="Unselect All" onclick="unselectAll()">
+    <hr>
+
+    <div class="image image-div photo1">
+        <img src="./images/IMG_7842.JPG" alt="Season of Remembrance">
+    </div>
+    <div class="image image-div photo2">
+        <img src="./images/IMG_5521.JPG" alt="Aurora Concert!">
+    </div>
+    <hr>
+    <div class="afterArea">
+        <p>こんにちは！skyのアレックスです！フレさんたちとの思い出を残したくて<strong>このページを作りました！</strong></p>
+        <input type="text" id="comment" class="comment" maxlength="20">
+        <input type="button" class="commentSubmit" value="コメント">
+    </div>
+    <div>
+        <button class="photoChanger" onclick="changePhoto()">Change my photo!</button>
+
+    </div>
+
+    <script src="clicker.js"></script>
+
+    <script>
+        function changePhoto() {
+            let photoRand;
+            let photoSelector1 = document.querySelector(".photo1").children[0];
+            let photoSelector2 = document.querySelector(".photo2").children[0];
+
+            photoRand = Math.floor(Math.random() * 13);
+            photoSelector1.setAttribute("src", photos[photoRand].imageUrl);
+            photoRand = Math.floor(Math.random() * 13);
+            photoSelector2.setAttribute("src", photos[photoRand].imageUrl);
+        }
+    </script>
+</body>
 
 </html>
