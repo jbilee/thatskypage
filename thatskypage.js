@@ -1,3 +1,4 @@
+/*
 var req = new XMLHttpRequest();
 req.open("GET", "images.json");
 req.onreadystatechange = function(){
@@ -17,6 +18,8 @@ req.onreadystatechange = function(){
     }
 }
 req.send();
+*/
+
 
 function selectAll(){ //btn
     var images = document.getElementsByClassName("image");
@@ -32,5 +35,3 @@ function unselectAll(){
         images[i].classList.remove("image-selected");
     }
 }
-
-
