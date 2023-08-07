@@ -7,34 +7,87 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500&display=swap" rel="stylesheet">
-    <title>sky album</title>
+    <title>thatskyalbum</title>
 
     <script src="thatskypage.js"></script>
     <script src="images.js"></script>
     <link rel="stylesheet" href="skypage.css">
 
+    <!-- Reenable later:
     <link rel="icon" type="images/x-icon" href="./images/egg04.png">
+    -->
 </head>
 
 <body>
     <div id="album-list">
-        <div class="image image-div photo1" onclick="albumPage()">
-            <img src="https://i.imgur.com/nPGL7k9.jpg" alt="Season of Remembrance">
+        <div class="image image-div">
+            <img id="0" src="https://i.imgur.com/sMB1yPr.jpg" alt="Small photo image">
         </div>
-        <div class="image image-div photo2">
-            <img src="https://i.imgur.com/kFJHMTU.jpg" alt="Aurora Concert!">
+        <div class="image image-div">
+            <img id="1" src="https://i.imgur.com/hk7suJ8.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="2" src="https://i.imgur.com/np9cxiu.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="3" src="https://i.imgur.com/ZJT5DgY.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="4" src="https://i.imgur.com/Ql0LeWi.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="5" src="https://i.imgur.com/vdhE8TM.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="6" src="https://i.imgur.com/7rubvwH.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="7" src="https://i.imgur.com/UfDvVIp.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="8" src="https://i.imgur.com/smmeYmI.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="9" src="https://i.imgur.com/xJnxmLW.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="10" src="https://i.imgur.com/MvZdg9O.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="11" src="https://i.imgur.com/FjhoacI.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="12" src="https://i.imgur.com/LOEzTXa.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="13" src="https://i.imgur.com/3EwXuE5.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="14" src="https://i.imgur.com/nPGL7k9.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="15" src="https://i.imgur.com/Of0UEnZ.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="16" src="https://i.imgur.com/zZ2qs0D.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="17" src="https://i.imgur.com/kFJHMTU.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="18" src="https://i.imgur.com/bQjweR6.jpg" alt="Small photo image">
+        </div>
+        <div class="image image-div">
+            <img id="19" src="https://i.imgur.com/Ip4WAne.jpg" alt="Small photo image">
         </div>
     </div>
 
-    <hr>
-
     <div id="album-page" class="album-page">
-        <img class="photo-img" alt="Large photo image">
-        src will be assigned every time image is clicked
+        <img class="photo-img" alt="Large photo image" width="1000px">
 
         <div class="photo-details">
-            <h3>photo title</h3>
-            photo details
+            <h1></h1>
+            <p></p>
         </div>
 
         <div class="photo-comments">
@@ -48,14 +101,14 @@
     </div>
 
 
-
     <script src="clicker.js"></script>
 
     <script>
         let listArea = document.querySelector("#album-list");
         let pageArea = document.querySelector("#album-page");
+        let viewId;
 
-        function changePhoto() {
+        function randomPage() {
             let photoRand;
             let photoSelector1 = document.querySelector(".photo1").children[0];
             let photoSelector2 = document.querySelector(".photo2").children[0];
@@ -69,12 +122,19 @@
         function albumPage() {
             listArea.style.display = "none";
             pageArea.style.display = "block";
+            viewId = event.target.id;
+            document.querySelector(".photo-img").setAttribute("src", event.target.src);
+            document.querySelector(".photo-details h1").textContent = photos[viewId].photoDate;
+            document.querySelector(".photo-details p").textContent = photos[viewId].desc;
         }
 
         function closePage() {
             listArea.style.display = "block";
             pageArea.style.display = "none";
+            viewId = "";
         }
+
+        listArea.addEventListener("click", albumPage);
 
     </script>
 </body>
