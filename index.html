@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="jp">
 
 <head>
     <meta charset="utf-8">
@@ -9,9 +9,133 @@
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500&display=swap" rel="stylesheet">
     <title>thatskyalbum</title>
 
-    <script src="thatskypage.js"></script>
-    <script src="images.js"></script>
-    <link rel="stylesheet" href="skypage.css">
+    <style>
+        html {
+            font-family: 'Zen Maru Gothic', sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0px;
+            padding: 20px;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            /* background-color: lightskyblue; */
+        }
+
+        .album-page {
+            display: none;
+            /* background-color: aquamarine; */
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .album-list {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            /* background-color: lightpink; */
+        }
+
+        .comment {
+            line-height: 20px;
+        }
+
+        .bubble {
+            border-radius: 8px;
+            padding: 7px 10px;
+            /* background-color: teal; */
+            color: white;
+            display: inline-block;
+            word-break: normal;
+            word-wrap: break-word;
+            margin: 3px 0px;
+            align-self: flex-start;
+        }
+
+        .list-img {
+            margin: 8px;
+            align-self: center;
+        }
+
+        .list-img img {
+            width: 300px;
+            border-radius: 12px;
+        }
+
+        .list-img:hover {
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        /* @media (min-width: 750px) {
+            img {
+                width: 49%;
+            }
+        } */
+
+        /* .left-col {
+            margin: 10px;
+        } */
+
+        .left-col img {
+            width: 1100px;
+            display: block;
+        }
+
+        .right-col {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            /* background-color: antiquewhite; */
+            width: 520px;
+            /* have width change depending on viewport size */
+            box-sizing: border-box;
+            padding: 15px;
+        }
+
+        .right-col-cmt {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            /* background-color: yellow; */
+            height: 70%;
+            /* width: 70%; */
+        }
+
+        .page-comments {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-details {
+            /* background-color: lavender; */
+            height: 30%;
+            position: relative;
+        }
+
+        .exit-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+        }
+
+        h1 {
+            margin: 0px 0px 15px;
+        }
+
+        .entry-field input {
+            height: 40px;
+        }
+
+        .id-invis {
+            display: none;
+        }
+    </style>
 
     <!-- Reenable later:
     <link rel="icon" type="images/x-icon" href="./images/egg04.png">
@@ -20,127 +144,108 @@
 
 <body>
     <h1>thatskyalbum</h1>
-    <p>アレックスのskyアルバム、thatskyalbumです！（＾∀＾●）ﾉｼ<br>
-    たまに大きい写真がロードしません、理由はわからないけど頑張って解決してみます。。ロードしないと「ｘ」ボタンを押して戻ってから改めて写真を選んでみてください！</p>
 
-    <div id="album-list">
-        <div class="image image-div">
-            <img id="0" src="https://i.imgur.com/sMB1yPr.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="1" src="https://i.imgur.com/hk7suJ8.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="2" src="https://i.imgur.com/np9cxiu.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="3" src="https://i.imgur.com/ZJT5DgY.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="4" src="https://i.imgur.com/Ql0LeWi.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="5" src="https://i.imgur.com/vdhE8TM.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="6" src="https://i.imgur.com/7rubvwH.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="7" src="https://i.imgur.com/UfDvVIp.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="8" src="https://i.imgur.com/smmeYmI.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="9" src="https://i.imgur.com/xJnxmLW.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="10" src="https://i.imgur.com/MvZdg9O.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="11" src="https://i.imgur.com/FjhoacI.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="12" src="https://i.imgur.com/LOEzTXa.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="13" src="https://i.imgur.com/3EwXuE5.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="14" src="https://i.imgur.com/nPGL7k9.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="15" src="https://i.imgur.com/Of0UEnZ.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="16" src="https://i.imgur.com/zZ2qs0D.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="17" src="https://i.imgur.com/kFJHMTU.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="18" src="https://i.imgur.com/bQjweR6.jpg" alt="Small photo image">
-        </div>
-        <div class="image image-div">
-            <img id="19" src="https://i.imgur.com/Ip4WAne.jpg" alt="Small photo image">
-        </div>
+    <div class="content">
+        <div class="album-list"></div>
+
+
     </div>
 
-    <div id="album-page" class="album-page">
-        <img class="photo-img" alt="Large photo image" width="1000px">
-
-        <div class="photo-details">
-            <h1></h1>
-            <p></p>
+    <div class="album-page">
+        <div class="left-col">
+            <img class="page-img" alt="Large photo image">
         </div>
 
-        <div class="photo-comments">
-            <input type="text" id="comment" class="comment" maxlength="20">
-            <input type="button" class="commentSubmit" value="コメント">
-        </div>
+        <div class="right-col">
+            <div class="page-details">
+                <div class="exit-btn">
+                    <input type="image" src="exit.png" onclick="closePage()">
+                </div>
+                <h1></h1>
+                <hr>
+                <p></p>
+                <div class="id-invis"></div>
+            </div>
 
-        <div class="photo-bottom">
-            <input type="button" value="X" onclick="closePage()">
+            <div class="right-col-cmt">
+                <div class="page-comments"></div>
+                <div class="entry-field">
+                    <form id="new-comment" onsubmit="addBubble(event)">
+                        <input type="text" class="comment" maxlength="50" required>
+                        <input type="submit" class="submit-btn" value="コメント">
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-
-
-    <script src="clicker.js"></script>
 
     <script>
-        let listArea = document.querySelector("#album-list");
-        let pageArea = document.querySelector("#album-page");
-        let viewId;
+        const userComment = document.querySelector(".comment");
+        const userSubmit = document.querySelector(".submit-btn");
+        const outputArea = document.querySelector(".page-comments");
+        let commentList = [];
+        let regI;
 
-        function randomPage() {
-            let photoRand;
-            let photoSelector1 = document.querySelector(".photo1").children[0];
-            let photoSelector2 = document.querySelector(".photo2").children[0];
+        function addBubble(e) {
+            e.preventDefault();
+            const userInput = userComment.value;
+            const newArea = document.createElement("div");
+            const randomizer = Math.floor(Math.random() * 4);
+            const postI = document.querySelector(".id-invis").textContent;
+            
+            console.log(postI)
 
-            photoRand = Math.floor(Math.random() * 13);
-            photoSelector1.setAttribute("src", photos[photoRand].imageUrl);
-            photoRand = Math.floor(Math.random() * 13);
-            photoSelector2.setAttribute("src", photos[photoRand].imageUrl);
+            // Get reg-index if localStorage exists
+            if (!localStorage.getItem("cmts")) {
+                regI = 0;
+            }
+            else {
+                commentList = JSON.parse(localStorage.getItem("cmts"));
+            }
+
+            // If obj data exists in commentList, get existing reg-index
+            regI = cmtsData[postI]["reg-index"];
+
+
+            // Visually remove oldest comment from list if total number of comments to show at a time exceeds 5
+            if (outputArea.childElementCount == 5) outputArea.children[0].remove();
+
+            newArea.classList.add("bubble");
+            chngColor(newArea, randomizer);
+            outputArea.append(newArea);
+            newArea.textContent = `${userInput}`;
+
+            // Store user input in localStorage
+            // obj: {post-id: , cmt: , reg-index: }
+            let newComment = { "post-id": postI, "cmt": userInput, "reg-index": regI++ }; // replace postI with appropriate variable name for photo index
+            commentList.push(newComment);
+
+            // Update comment list
+            localStorage.setItem("cmts", JSON.stringify(commentList));
+
+            console.log(regI);
         }
 
-        function albumPage() {
-            listArea.style.display = "none";
-            pageArea.style.display = "block";
-            viewId = event.target.id;
-            document.querySelector(".photo-img").setAttribute("src", event.target.src);
-            document.querySelector(".photo-details h1").textContent = photos[viewId].photoDate;
-            document.querySelector(".photo-details p").textContent = photos[viewId].desc;
+        function chngColor(areaToPaint, num) {
+            switch (num) {
+                case 0:
+                    areaToPaint.style.backgroundColor = "#461959";
+                    break;
+                case 1:
+                    areaToPaint.style.backgroundColor = "#7A316F";
+                    break;
+                case 2:
+                    areaToPaint.style.backgroundColor = "#CD6688";
+                    break;
+                case 3:
+                    areaToPaint.style.backgroundColor = "#EF6262";
+            }
         }
 
-        function closePage() {
-            listArea.style.display = "block";
-            pageArea.style.display = "none";
-            viewId = "";
-        }
-
-        listArea.addEventListener("click", albumPage);
-
+        //  
     </script>
+
+    <script src="images.js"></script>
 </body>
 
 </html>
