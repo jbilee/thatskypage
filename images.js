@@ -20,32 +20,3 @@ const photos = [
     { imgId: 18, imageUrl: "https://i.imgur.com/bQjweR6.jpg", photoDate: "2022 12月", desc: "大好きな写真です！" },
     { imgId: 19, imageUrl: "https://i.imgur.com/Ip4WAne.jpg", photoDate: "2022 2月", desc: "エビキング！" }
 ]
-
-const listArea = document.querySelector(".album-list");
-const pageArea = document.querySelector(".album-page");
-
-for (let data of photos) {
-    const newElem = document.createElement("div");
-    newElem.setAttribute("id", `${data.imgId}`);
-    newElem.classList.add("list-img");
-    newElem.innerHTML = `<a onclick="albumPage(event)"><img src="${data.imageUrl}"></a>`;
-    listArea.append(newElem);
-}
-
-
-function albumPage(e) {
-    const viewId = e.target.parentNode.parentNode.id;
-    listArea.style.display = "none";
-    pageArea.style.display = "flex";
-
-    document.querySelector(".page-img").setAttribute("src", e.target.src);
-    document.querySelector(".page-details h1").textContent = photos[viewId].photoDate;
-    document.querySelector(".page-details p").textContent = photos[viewId].desc;
-    document.querySelector(".page-details .id-invis").textContent = viewId;
-}
-
-function closePage() {
-    listArea.style.display = "flex";
-    pageArea.style.display = "none";
-    viewId = "";
-}
