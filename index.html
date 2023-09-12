@@ -23,12 +23,10 @@
         .content {
             display: flex;
             justify-content: center;
-            /* background-color: lightskyblue; */
         }
 
         .album-page {
             display: none;
-            /* background-color: aquamarine; */
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;
@@ -38,17 +36,12 @@
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            /* background-color: lightpink; */
-        }
-
-        .comment {
-            line-height: 20px;
         }
 
         .bubble {
             border-radius: 8px;
             padding: 7px 10px;
-            /* background-color: teal; */
+            background-color: teal;
             color: white;
             display: inline-block;
             word-break: normal;
@@ -72,16 +65,6 @@
             cursor: pointer;
         }
 
-        /* @media (min-width: 750px) {
-            img {
-                width: 49%;
-            }
-        } */
-
-        /* .left-col {
-            margin: 10px;
-        } */
-
         .left-col img {
             width: 1100px;
             display: block;
@@ -91,7 +74,6 @@
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
-            /* background-color: antiquewhite; */
             width: 520px;
             /* have width change depending on viewport size */
             box-sizing: border-box;
@@ -102,9 +84,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            /* background-color: yellow; */
             height: 70%;
-            /* width: 70%; */
         }
 
         .page-comments {
@@ -113,7 +93,6 @@
         }
 
         .page-details {
-            /* background-color: lavender; */
             height: 30%;
             position: relative;
         }
@@ -136,10 +115,6 @@
             display: none;
         }
     </style>
-
-    <!-- Reenable later:
-    <link rel="icon" type="images/x-icon" href="./images/egg04.png">
-    -->
 </head>
 
 <body>
@@ -147,7 +122,6 @@
 
     <div class="content">
         <div class="album-list"></div>
-
 
     </div>
 
@@ -171,7 +145,7 @@
                 <div class="page-comments"></div>
                 <div class="entry-field">
                     <form id="new-comment" onsubmit="addBubble(event)">
-                        <input type="text" class="comment" maxlength="50" required>
+                        <input type="text" class="comment" maxlength="50" size="40" required>
                         <input type="submit" class="submit-btn" value="コメント">
                     </form>
                 </div>
@@ -179,12 +153,67 @@
         </div>
     </div>
 
+    <script src="images.js"></script>
+
     <script>
         const userComment = document.querySelector(".comment");
         const userSubmit = document.querySelector(".submit-btn");
         const outputArea = document.querySelector(".page-comments");
         let commentList = [];
-        let regI;
+
+        const listArea = document.querySelector(".album-list");
+        const pageArea = document.querySelector(".album-page");
+
+        // Function to call if localStorage exists
+        function getComments() {
+            commentList = JSON.parse(localStorage.getItem("cmts"));
+        }
+
+        for (let data of photos) {
+            const newElem = document.createElement("div");
+            newElem.setAttribute("id", `${data.imgId}`);
+            newElem.classList.add("list-img");
+            newElem.innerHTML = `<a onclick="albumPage(event)"><img src="${data.imageUrl}"></a>`;
+            listArea.append(newElem);
+        }
+
+        function albumPage(e) {
+            const viewId = e.target.parentNode.parentNode.id;
+            listArea.style.display = "none";
+            pageArea.style.display = "flex";
+
+            document.querySelector(".page-img").setAttribute("src", e.target.src);
+            document.querySelector(".page-details h1").textContent = photos[viewId].photoDate;
+            document.querySelector(".page-details p").textContent = photos[viewId].desc;
+            document.querySelector(".page-details .id-invis").textContent = viewId;
+
+            // If this photo has any comments, load them
+            if (localStorage.getItem("cmts")) getComments();
+            if (commentList.findIndex((x) => { return x["post-id"] == viewId; }) >= 0) {
+                let storageI = commentList.findIndex((x) => { return x["post-id"] == viewId; });
+                const lastComments = commentList[storageI]["cmt"].slice(-5);
+
+                // Print the last 5 comments for this photo
+                for (let data of lastComments) {
+                    const newArea = document.createElement("div");
+                    newArea.classList.add("bubble");
+                    // chngColor(newArea, randomizer);
+                    newArea.textContent = data;
+                    outputArea.append(newArea);
+                }
+            }
+        }
+
+        function closePage() {
+            listArea.style.display = "flex";
+            pageArea.style.display = "none";
+            viewId = "";
+
+            // Clear user's comment input and current comments list
+            const commentArea = document.querySelector(".comment");
+            commentArea.value = "";
+            outputArea.innerHTML = "";
+        }
 
         function addBubble(e) {
             e.preventDefault();
@@ -192,20 +221,27 @@
             const newArea = document.createElement("div");
             const randomizer = Math.floor(Math.random() * 4);
             const postI = document.querySelector(".id-invis").textContent;
-            
-            console.log(postI)
+            let storageI = -1;
 
-            // Get reg-index if localStorage exists
-            if (!localStorage.getItem("cmts")) {
-                regI = 0;
+            // Get any existing comments
+            if (localStorage.getItem("cmts")) getComments();
+            if (commentList.findIndex((x) => { return x["post-id"] == postI; }) >= 0) {
+                storageI = commentList.findIndex((x) => { return x["post-id"] == postI; });
+            }
+
+            // Store user input in commentList
+            if (storageI >= 0) {
+                commentList[storageI]["cmt"].push(userInput);
             }
             else {
-                commentList = JSON.parse(localStorage.getItem("cmts"));
+                let newComment = { "post-id": postI, "cmt": [] }
+                newComment["cmt"].push(userInput);
+
+                commentList.push(newComment);
             }
 
-            // If obj data exists in commentList, get existing reg-index
-            regI = cmtsData[postI]["reg-index"];
-
+            // Update localStorage
+            localStorage.setItem("cmts", JSON.stringify(commentList));
 
             // Visually remove oldest comment from list if total number of comments to show at a time exceeds 5
             if (outputArea.childElementCount == 5) outputArea.children[0].remove();
@@ -215,15 +251,9 @@
             outputArea.append(newArea);
             newArea.textContent = `${userInput}`;
 
-            // Store user input in localStorage
-            // obj: {post-id: , cmt: , reg-index: }
-            let newComment = { "post-id": postI, "cmt": userInput, "reg-index": regI++ }; // replace postI with appropriate variable name for photo index
-            commentList.push(newComment);
-
-            // Update comment list
-            localStorage.setItem("cmts", JSON.stringify(commentList));
-
-            console.log(regI);
+            // Clear user's comment input
+            const commentArea = document.querySelector(".comment");
+            commentArea.value = "";
         }
 
         function chngColor(areaToPaint, num) {
@@ -241,11 +271,7 @@
                     areaToPaint.style.backgroundColor = "#EF6262";
             }
         }
-
-        //  
     </script>
-
-    <script src="images.js"></script>
 </body>
 
 </html>
